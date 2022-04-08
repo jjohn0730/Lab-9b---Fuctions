@@ -1,0 +1,102 @@
+// Lab 9b - Functions.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+# include <iostream>
+#include <fstream>
+using namespace std;
+
+void userInput(ofstream&);
+double addition(double, double);
+double substraction(double, double);
+double multiplication(double, double);
+double division(double, double);
+void printResult(double, ofstream&); // & sign is an adress operator passing by reference , refering to the double so what you want to print out
+void options(double, double, ofstream&);
+
+int main() {
+
+	ofstream outfile;
+	outfile.open("output.txt");
+
+	//using while loop to run this continiously ??? How
+	int count = 1;
+	while (count > 0) //wanting to let it run forever
+	{
+		userInput(outfile);
+		//count++;
+	}
+	outfile.close();
+	return 0;
+}
+
+void userInput(ofstream& outfile)
+{
+	double num1, num2;
+	cout << "Enter the values: \n";
+	cin >> num1 >> num2;
+	options(num1, num2, outfile);
+}
+
+void options(double num1, double num2, ofstream& outfile)
+{
+	char oper; //operator to do the math
+	double result = 0;
+	cout << "Choose a mathematical operation by entering a sign \n";
+	cout << "+ for Addition \n - for Minus \n * - for multiplication \n / for dividing\n";
+	cin >> oper;
+
+	//Switch Statement to show mathematical Operations to choose from
+	switch (oper)
+	{
+	case '+':
+		result = addition(num1, num2);
+		break;
+	case '-':
+		result = substraction(num1, num2);
+		break;
+	case '*':
+		result = multiplication(num1, num2);
+		break;
+	case '/':
+		result = division(num1, num2);
+		break;
+
+	default:
+		outfile << "Invalid selection";
+	}
+
+	printResult(result, outfile); //calling the fuction to print out the result
+}
+
+/* Now it is always the same
+Name:
+Input: Two Numbers
+Process: (for example adding substaction...)
+Returns: (for example sum of the addiotion or substraction...)
+*/
+double addition(double num1, double num2)
+{
+	double sum = num1 + num2;
+	return sum;
+}
+double substraction(double num1, double num2)
+{
+	double sub = num1 - num2;
+	return sub;
+}
+double multiplication(double num1, double num2)
+{
+	double mult = num1 * num2;
+	return mult;
+}
+double division(double num1, double num2)
+{
+	double divi = num1 / num2;
+	return divi;
+}
+
+//now we want to pritn out the result
+
+void printResult(double result, ofstream& outfile)
+{
+	outfile << "The restult is:" << result;
+}
